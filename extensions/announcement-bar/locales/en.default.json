@@ -1,0 +1,11 @@
+{
+  "announcement_bar": {
+    "name": "Announcement Bar",
+    "settings": {
+      "background_color": "Background Color",
+      "text_color": "Text Color",
+      "font_size": "Font Size",
+      "padding": "Padding"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "NotFound": {
+    "description": "Check the URL and try again.",
+    "heading": "Page not found"
+  }
+}
