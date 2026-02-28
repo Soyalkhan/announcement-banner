@@ -1,6 +1,7 @@
 // @ts-check
-import { join } from "path";
+import { join, dirname } from "path";
 import { readFileSync } from "fs";
+import { fileURLToPath } from "url";
 import express from "express";
 import serveStatic from "serve-static";
 
@@ -9,6 +10,8 @@ import connectDB from "./config/db.js";
 import announcementRoutes from "./routes/announcementRoutes.js";
 import PrivacyWebhookHandlers from "./privacy.js";
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
   10
@@ -16,8 +19,8 @@ const PORT = parseInt(
 
 const STATIC_PATH =
   process.env.NODE_ENV === "production"
-    ? `${process.cwd()}/frontend/dist`
-    : `${process.cwd()}/frontend/`;
+    ? join(__dirname, "frontend", "dist")
+    : join(__dirname, "frontend");
 
 // Connect to MongoDB
 connectDB();

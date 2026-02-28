@@ -5,7 +5,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "shopify": "shopify",
-    "build": "shopify app build",
+    "build": "cd web && npm install && cd frontend && npm install && SHOPIFY_API_KEY=$SHOPIFY_API_KEY npm run build",
+    "start": "cd web && NODE_ENV=production node index.js",
     "dev": "shopify app dev",
     "info": "shopify app info",
     "generate": "shopify app generate",
