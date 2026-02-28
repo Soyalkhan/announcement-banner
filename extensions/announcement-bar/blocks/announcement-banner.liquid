@@ -1,0 +1,64 @@
+{% if shop.metafields.my_app.announcement != blank %}
+  <div id="announcement-bar" style="
+    background-color: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+    text-align: center;
+    padding: {{ block.settings.padding }}px 20px;
+    font-size: {{ block.settings.font_size }}px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  ">
+    {{ shop.metafields.my_app.announcement }}
+  </div>
+  <style>
+    body { margin-top: {{ block.settings.font_size | plus: block.settings.padding | plus: block.settings.padding | plus: 10 }}px !important; }
+  </style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "target": "body",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding",
+      "default": 10
+    }
+  ]
+}
+{% endschema %}

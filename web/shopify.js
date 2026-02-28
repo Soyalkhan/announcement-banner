@@ -1,20 +1,10 @@
-import { BillingInterval, LATEST_API_VERSION } from "@shopify/shopify-api";
+import { LATEST_API_VERSION } from "@shopify/shopify-api";
 import { shopifyApp } from "@shopify/shopify-app-express";
-import { SQLiteSessionStorage } from "@shopify/shopify-app-session-storage-sqlite";
+import { MongoDBSessionStorage } from "@shopify/shopify-app-session-storage-mongodb";
 import { restResources } from "@shopify/shopify-api/rest/admin/2024-10";
 
-const DB_PATH = `${process.cwd()}/database.sqlite`;
-
-// The transactions with Shopify will always be marked as test transactions, unless NODE_ENV is production.
-// See the ensureBilling helper to learn more about billing in this template.
-const billingConfig = {
-  "My Shopify One-Time Charge": {
-    // This is an example configuration that would do a one-time charge for $5 (only USD is currently supported)
-    amount: 5.0,
-    currencyCode: "USD",
-    interval: BillingInterval.OneTime,
-  },
-};
+const MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://localhost:27017/announcement-bar";
 
 const shopify = shopifyApp({
   api: {
@@ -25,7 +15,7 @@ const shopify = shopifyApp({
       lineItemBilling: true,
       unstable_managedPricingSupport: true,
     },
-    billing: undefined, // or replace with billingConfig above to enable example billing
+    billing: undefined,
   },
   auth: {
     path: "/api/auth",
@@ -34,8 +24,9 @@ const shopify = shopifyApp({
   webhooks: {
     path: "/api/webhooks",
   },
-  // This should be replaced with your preferred storage strategy
-  sessionStorage: new SQLiteSessionStorage(DB_PATH),
+  sessionStorage: new MongoDBSessionStorage(MONGODB_URI, "announcement-bar", {
+    collectionName: "appSessions",
+  }),
 });
 
 export default shopify;

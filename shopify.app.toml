@@ -1,3 +1,27 @@
-# This file stores configurations for your Shopify app.
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-scopes = "write_products"
+client_id = "752f67d7364dd4206cfd04f3798245cc"
+name = "Announcement-Pro"
+application_url = "https://brian-fri-ir-accessing.trycloudflare.com"
+embedded = true
+handle = "ediz-pro"
+
+[webhooks]
+api_version = "2024-10"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_orders,read_products,write_products"
+
+[auth]
+redirect_urls = [
+  "https://brian-fri-ir-accessing.trycloudflare.com/auth/callback",
+  "https://brian-fri-ir-accessing.trycloudflare.com/auth/shopify/callback",
+  "https://brian-fri-ir-accessing.trycloudflare.com/api/auth/callback"
+]
+
+[pos]
+embedded = false
+
+[build]
+automatically_update_urls_on_dev = true
