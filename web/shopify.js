@@ -4,7 +4,7 @@ import { MongoDBSessionStorage } from "@shopify/shopify-app-session-storage-mong
 import { restResources } from "@shopify/shopify-api/rest/admin/2024-10";
 
 const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/announcement-bar";
+   process.env.MONGO_URI || "mongodb://localhost:27017/announcement-bar";
 
 const shopify = shopifyApp({
   api: {
