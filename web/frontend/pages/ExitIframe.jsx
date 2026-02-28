@@ -14,15 +14,26 @@ export default function ExitIframe() {
     if (!!app && !!search) {
       const params = new URLSearchParams(search);
       const redirectUri = params.get("redirectUri");
-      const url = new URL(decodeURIComponent(redirectUri));
 
-      if (
-        [location.hostname, "admin.shopify.com"].includes(url.hostname) ||
-        url.hostname.endsWith(".myshopify.com")
-      ) {
-        window.open(url, "_top");
-      } else {
-        setShowWarning(true);
+      if (!redirectUri) {
+        // No redirectUri provided - let App Bridge handle navigation
+        return;
+      }
+
+      try {
+        const url = new URL(decodeURIComponent(redirectUri));
+
+        if (
+          [location.hostname, "admin.shopify.com"].includes(url.hostname) ||
+          url.hostname.endsWith(".myshopify.com")
+        ) {
+          window.open(url, "_top");
+        } else {
+          setShowWarning(true);
+        }
+      } catch {
+        // Invalid URL - let App Bridge handle navigation
+        return;
       }
     }
   }, [app, search, setShowWarning]);

@@ -56,13 +56,7 @@ app.use("/api", announcementRoutes);
 app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));
 
-app.use("/*", (req, res, next) => {
-  // Railway health check and direct access without shop param - return 200
-  if (!req.query.shop) {
-    return res.status(200).send("OK");
-  }
-  next();
-}, shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
+app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
   const apiKey = process.env.SHOPIFY_API_KEY || "";
   return res
     .status(200)
