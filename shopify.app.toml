@@ -2,9 +2,9 @@
 
 client_id = "752f67d7364dd4206cfd04f3798245cc"
 name = "Announcement-Pro"
-application_url = "https://brian-fri-ir-accessing.trycloudflare.com"
+application_url = "https://announcement-banner-production.up.railway.app"
 embedded = true
-handle = "ediz-pro"
+handle = "announcement-pro"
 
 [webhooks]
 api_version = "2024-10"
@@ -15,9 +15,9 @@ scopes = "read_orders,read_products,write_products"
 
 [auth]
 redirect_urls = [
-  "https://brian-fri-ir-accessing.trycloudflare.com/auth/callback",
-  "https://brian-fri-ir-accessing.trycloudflare.com/auth/shopify/callback",
-  "https://brian-fri-ir-accessing.trycloudflare.com/api/auth/callback"
+  "https://announcement-banner-production.up.railway.app/auth/callback",
+  "https://announcement-banner-production.up.railway.app/auth/shopify/callback",
+  "https://announcement-banner-production.up.railway.app/api/auth/callback"
 ]
 
 [pos]
