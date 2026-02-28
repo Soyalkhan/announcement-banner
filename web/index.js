@@ -27,6 +27,11 @@ connectDB();
 
 const app = express();
 
+// Health check for Railway (must be before Shopify middleware)
+app.get("/health", (_req, res) => {
+  res.status(200).send("OK");
+});
+
 // Shopify authentication and webhook handling
 app.get(shopify.config.auth.path, shopify.auth.begin());
 app.get(
@@ -52,14 +57,21 @@ app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));
 
 app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
+  const apiKey = process.env.SHOPIFY_API_KEY || "";
   return res
     .status(200)
     .set("Content-Type", "text/html")
     .send(
       readFileSync(join(STATIC_PATH, "index.html"))
         .toString()
-        .replace("%VITE_SHOPIFY_API_KEY%", process.env.SHOPIFY_API_KEY || "")
+        .replace("%VITE_SHOPIFY_API_KEY%", apiKey)
+        .replace(
+          /(<meta name="shopify-api-key" content=")[^"]*(")/,
+          `$1${apiKey}$2`
+        )
     );
 });
 
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
